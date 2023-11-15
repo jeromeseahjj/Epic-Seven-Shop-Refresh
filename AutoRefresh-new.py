@@ -51,7 +51,7 @@ def buy_mystic_sum():
     if (Mystic_pos) != None:
         print("Buy Mystic Summons.")
         Mystic_point=pyautogui.center(Mystic_pos)
-        pyautogui.click(x=Mystic_pos[0]+800, y=Mystic_pos[1]+100, clicks=2, interval=0.05, button='left')
+        pyautogui.click(x=Mystic_pos[0]+800, y=Mystic_pos[1]+90, clicks=2, interval=0.05, button='left')
         time.sleep(0.5)#wait for confirm button
         Buy_button_Mystic_pos=pyautogui.locateOnScreen('Buy_button_Mystic.PNG')
         Buy_button_Mystic_point=pyautogui.center(Buy_button_Mystic_pos)
