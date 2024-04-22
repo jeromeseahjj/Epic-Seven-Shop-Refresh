@@ -16,7 +16,7 @@ import keyboard
 # CONFIRM_TIME: Sets the timer to wait for confirm screen to appear
 # DRAG_PIXEL: How much to drag/scroll to see the final line in the shop
 PAUSE_TIME = 0.3 # Currently is 0.3 seconds. Increase this if your BlueStack is lagging. 
-CONFIRM_TIME = 0.5 # Change this if your bluestack is lagging and confirm screen is taking time to appear.
+CONFIRM_TIME = 1 # Change this if your bluestack is lagging and confirm screen is taking time to appear.
 DRAG_PIXEL = 400 # Increase this if you realize you cannot scroll until the last row
 
 coven_counter = 0 # Counts how many convenent summon bought
@@ -33,13 +33,16 @@ screen_res = pyautogui.size()
 ###########
 
 def buy_conven_sum(): 
-    Coven_pos = pyautogui.locateOnScreen('new_coven.PNG',confidence=0.98)
+    try:
+        Coven_pos = pyautogui.locateOnScreen('new_coven.png', confidence=0.98)
+    except pyautogui.ImageNotFoundException:
+        Coven_pos = None
     if (Coven_pos) != None:
         print("Buy Covenant Summons.")
         Coven_point=pyautogui.center(Coven_pos)
         pyautogui.click(x=Coven_point[0], y=Coven_point[1], clicks=2, interval=0.05, button='left')
         time.sleep(CONFIRM_TIME)#wait for confirm button
-        Buy_button_Covenant_pos=pyautogui.locateOnScreen('Buy_button_Covenant.PNG')
+        Buy_button_Covenant_pos=pyautogui.locateOnScreen('Buy_button_Covenant.png', confidence=0.98)
         Buy_button_Covenant_point=pyautogui.center(Buy_button_Covenant_pos)
         pyautogui.click(x=Buy_button_Covenant_point[0], y=Buy_button_Covenant_point[1], clicks=2, interval=0.05, button='left')
         time.sleep(CONFIRM_TIME) # Added to fix edge cases
@@ -47,13 +50,16 @@ def buy_conven_sum():
     return 0
 
 def buy_mystic_sum():
-    Mystic_pos = pyautogui.locateOnScreen('mystic1.PNG',confidence=0.97)
+    try:
+        Mystic_pos = pyautogui.locateOnScreen('mystic1.png',confidence=0.97)
+    except pyautogui.ImageNotFoundException:
+        Mystic_pos = None
     if (Mystic_pos) != None:
         print("Buy Mystic Summons.")
         Mystic_point=pyautogui.center(Mystic_pos)
         pyautogui.click(x=Mystic_pos[0]+800, y=Mystic_pos[1]+90, clicks=2, interval=0.05, button='left')
         time.sleep(0.5)#wait for confirm button
-        Buy_button_Mystic_pos=pyautogui.locateOnScreen('Buy_button_Mystic.PNG')
+        Buy_button_Mystic_pos=pyautogui.locateOnScreen('Buy_button_Mystic.png', confidence=0.98)
         Buy_button_Mystic_point=pyautogui.center(Buy_button_Mystic_pos)
         pyautogui.click(x=Buy_button_Mystic_point[0], y=Buy_button_Mystic_point[1], clicks=2, interval=0.05, button='left')
         time.sleep(CONFIRM_TIME)
@@ -77,12 +83,12 @@ while keyboard.is_pressed('q') == False:
     coven_counter += buy_conven_sum()
 
     # Refresh
-    RB_pos=pyautogui.locateOnScreen('refresh_button.PNG',confidence=0.90)
+    RB_pos=pyautogui.locateOnScreen('refresh_button.png',confidence=0.90)
     time.sleep(PAUSE_TIME)
     RB_point=pyautogui.center(RB_pos)
     pyautogui.click(x=RB_point[0], y=RB_point[1], clicks=2, interval=0.05, button='left')
     time.sleep(PAUSE_TIME)#wait for confirm to appear
-    Confirm_pos=pyautogui.locateOnScreen('confirm button.PNG')
+    Confirm_pos=pyautogui.locateOnScreen('confirm button.png',confidence=0.90)
     Confirm_point=pyautogui.center(Confirm_pos)
     pyautogui.click(x=Confirm_point[0], y=Confirm_point[1], clicks=2, interval=0.05, button='left')
     time.sleep(PAUSE_TIME)
